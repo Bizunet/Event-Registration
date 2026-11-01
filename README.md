@@ -5,7 +5,7 @@ A mobile-responsive event registration, digital ticket, and organizer guest rost
 ## Setup
 
 1. Install Node.js 20+ and PostgreSQL.
-2. Copy `.env.example` to `.env` and set `DATABASE_URL`, `ADMIN_PIN`, `ADMIN_SESSION_SECRET` (at least 32 characters), and the public app URL.
+2. Copy `.env.example` to `.env` and set `DATABASE_URL`, `ADMIN_PIN`, `ADMIN_SESSION_SECRET` (at least 32 characters), the public app URL, and the SMTP settings for confirmation emails.
 3. Install dependencies and initialize the database:
 
    ```sh
@@ -15,6 +15,8 @@ A mobile-responsive event registration, digital ticket, and organizer guest rost
    ```
 
 Visit `http://localhost:3000`. Set a long, unique organizer PIN before exposing `/admin/guests`; use HTTPS in production.
+
+Registration confirmation emails are sent through the configured SMTP server after an attendee is saved. Set `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE` (`true` for implicit TLS, typically port 465), `SMTP_USER`, `SMTP_PASSWORD`, and `SMTP_FROM`. If email delivery fails, registration and the digital pass remain available, and the ticket page displays a warning.
 
 ## Routes
 

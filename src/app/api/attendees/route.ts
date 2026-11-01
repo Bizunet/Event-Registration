@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { validateAttendee } from "@/lib/validation";
+import { sendConfirmationEmail } from "@/lib/confirmation-email";
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -15,8 +16,24 @@ export async function POST(request: Request) {
   if (!validated.success) return NextResponse.json({ error: validated.message }, { status: 400 });
 
   try {
-    const attendee = await prisma.attendee.create({ data: validated.data, select: { id: true } });
-    return NextResponse.json({ ticketId: attendee.id }, { status: 201 });
+    const attendee = await prisma.attendee.create({
+      data: validated.data,
+      select: { id: true, email: true, full_name: true },
+    });
+
+    const baseUrl = (process.env.NEXT_PUBLIC_APP_URL ?? new URL(request.url).origin).replace(/\/+$/, "");
+    const ticketUrl = `${baseUrl}/ticket/${attendee.id}`;
+    try {
+      await sendConfirmationEmail({
+        email: attendee.email,
+        fullName: attendee.full_name,
+        ticketUrl,
+      });
+      return NextResponse.json({ ticketId: attendee.id, emailSent: true }, { status: 201 });
+    } catch (emailError) {
+      console.error("Failed to send registration confirmation email", emailError);
+      return NextResponse.json({ ticketId: attendee.id, emailSent: false }, { status: 201 });
+    }
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
       const target = Array.isArray(error.meta?.target) ? error.meta.target.join(" ") : String(error.meta?.target ?? "");
