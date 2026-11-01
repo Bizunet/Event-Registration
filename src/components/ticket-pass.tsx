@@ -33,8 +33,8 @@ export default function TicketPass({ attendee, verificationUrl }: { attendee: At
 
   return (
     <div className="w-full max-w-[540px]">
-      <article ref={passRef} className="print-card overflow-hidden rounded-[1.75rem] bg-white shadow-2xl shadow-forest/10">
-        <header className="relative overflow-hidden bg-forest px-7 py-7 text-white sm:px-9 sm:py-8">
+      <article ref={passRef} className="print-card overflow-hidden rounded-[1.75rem] bg-white shadow-2xl shadow-maroon/15">
+        <header className="relative overflow-hidden bg-maroon px-7 py-7 text-cream sm:px-9 sm:py-8">
           <div className="absolute -right-12 -top-24 h-56 w-56 rounded-full border border-white/10" />
           <div className="relative flex items-start justify-between gap-4">
             <div>
@@ -50,28 +50,28 @@ export default function TicketPass({ attendee, verificationUrl }: { attendee: At
 
         <div className="grid gap-7 px-7 py-7 sm:grid-cols-[1fr_auto] sm:px-9 sm:py-8">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[.18em] text-gold">Admit one · Attendee</p>
+            <p className="text-[10px] font-bold uppercase tracking-[.18em] text-accent">Admit one · Attendee</p>
             <h3 className="mt-2 break-words text-2xl font-black tracking-tight text-ink">{attendee.full_name}</h3>
             <dl className="mt-5 grid grid-cols-[auto_1fr] gap-x-5 gap-y-3 text-sm">
-              <dt className="text-ink/45">Student ID</dt><dd className="font-semibold text-ink">{attendee.student_id}</dd>
-              <dt className="text-ink/45">Department</dt><dd className="font-semibold text-ink">{attendee.department}</dd>
-              <dt className="text-ink/45">Year &amp; semester</dt><dd className="font-semibold text-ink">{attendee.year_semester}</dd>
-              <dt className="text-ink/45">Phone</dt><dd className="font-semibold text-ink">{attendee.phone}</dd>
+              <dt className="text-ink/65">Student ID</dt><dd className="font-semibold text-ink">{attendee.student_id}</dd>
+              <dt className="text-ink/65">Department</dt><dd className="font-semibold text-ink">{attendee.department}</dd>
+              <dt className="text-ink/65">Year &amp; semester</dt><dd className="font-semibold text-ink">{attendee.year_semester}</dd>
+              <dt className="text-ink/65">Phone</dt><dd className="font-semibold text-ink">{attendee.phone}</dd>
             </dl>
           </div>
           <div className="flex flex-col items-center justify-center rounded-2xl bg-cream p-3">
             <QRCodeSVG value={verificationUrl} size={132} level="H" includeMargin />
-            <span className="mt-1 text-[9px] font-bold uppercase tracking-[.15em] text-ink/45">Scan to verify</span>
+            <span className="mt-1 text-[9px] font-bold uppercase tracking-[.15em] text-ink/65">Scan to verify</span>
           </div>
         </div>
         <footer className="flex items-center justify-between gap-4 border-t border-dashed border-ink/15 px-7 py-4 sm:px-9">
-          <div><p className="text-[9px] font-bold uppercase tracking-[.16em] text-ink/40">Ticket reference</p><p className="mt-1 break-all font-mono text-[10px] font-semibold tracking-wider text-forest">{attendee.id.toUpperCase()}</p></div>
-          <span className="shrink-0 rounded-full bg-gold/15 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-ink">Digital pass</span>
+          <div><p className="text-[9px] font-bold uppercase tracking-[.16em] text-ink/65">Ticket reference</p><p className="mt-1 break-all font-mono text-[10px] font-semibold tracking-wider text-maroon">{attendee.id.toUpperCase()}</p></div>
+          <span className="shrink-0 rounded-full bg-cream px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-ink">Digital pass</span>
         </footer>
       </article>
       <div className="no-print mt-5">
-        <button onClick={downloadPass} disabled={downloading} className="flex w-full items-center justify-center gap-2 rounded-xl bg-forest px-5 py-4 font-bold text-white transition hover:bg-ink disabled:opacity-60">
-          {downloading ? <><LoaderCircle className="h-5 w-5 animate-spin" /> Preparing pass…</> : <><Download className="h-5 w-5" /> Download pass</>}
+        <button onClick={downloadPass} disabled={downloading} className="flex w-full items-center justify-center gap-2 rounded-xl bg-maroon px-5 py-4 font-bold text-cream shadow-lg shadow-maroon/20 transition hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon disabled:cursor-not-allowed disabled:opacity-70">
+          {downloading ? <><LoaderCircle className="h-5 w-5 animate-spin" /> Preparing pass…</> : <><Download className="h-5 w-5" /> Download your pass</>}
         </button>
         {error && <p role="alert" className="mt-3 text-center text-sm text-red-700">{error}</p>}
       </div>

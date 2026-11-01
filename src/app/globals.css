@@ -4,19 +4,23 @@
 
 :root {
   color-scheme: light;
-  background: #fbf8f0;
-  color: #172d28;
+  background: #e5d7c0;
+  color: #24070d;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; min-height: 100vh; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #e5d7c0;
+}
 button, input, select { font: inherit; }
-::selection { color: #fff; background: #174e3c; }
+::selection { color: #f3eadc; background: #3b0612; }
 
 .grain {
-  background-image: radial-gradient(rgba(23, 78, 60, .12) .7px, transparent .7px);
+  background-image: radial-gradient(rgba(59, 6, 18, .16) .7px, transparent .7px);
   background-size: 15px 15px;
 }
 
