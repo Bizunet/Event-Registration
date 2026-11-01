@@ -38,8 +38,7 @@ export default function RegistrationForm() {
       }
       setSuccess(true);
       setMessage("You’re registered! Your digital pass is ready.");
-      const emailStatus = result.emailSent ? "sent" : "not-sent";
-      router.push(`/ticket/${result.ticketId}?email=${emailStatus}`);
+      router.push(`/ticket/${result.ticketId}`);
     } catch {
       setSuccess(false);
       setMessage("We couldn’t reach the registration service. Please try again.");

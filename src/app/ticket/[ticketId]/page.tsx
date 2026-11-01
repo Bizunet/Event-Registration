@@ -7,14 +7,8 @@ import TicketPass from "@/components/ticket-pass";
 
 export const dynamic = "force-dynamic";
 
-export default async function TicketPage({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ ticketId: string }>;
-  searchParams: Promise<{ email?: string }>;
-}) {
-  const [{ ticketId }, query] = await Promise.all([params, searchParams]);
+export default async function TicketPage({ params }: { params: Promise<{ ticketId: string }> }) {
+  const { ticketId } = await params;
   const attendee = await prisma.attendee.findUnique({
     where: { id: ticketId },
     select: { id: true, full_name: true, student_id: true, department: true, year_semester: true, phone: true },
@@ -33,16 +27,6 @@ export default async function TicketPage({
           <h1 className="mt-2 text-3xl font-black tracking-tight text-ink sm:text-4xl">Your digital event pass</h1>
           <p className="mt-2 text-sm text-ink/70">Save this pass and bring it with you.</p>
         </div>
-        {query.email === "sent" && (
-          <p role="status" className="mx-auto mb-6 max-w-xl rounded-xl bg-white px-4 py-3 text-center text-sm font-medium text-plum">
-            A confirmation email with your digital pass link has been sent to your email address.
-          </p>
-        )}
-        {query.email === "not-sent" && (
-          <p role="alert" className="mx-auto mb-6 max-w-xl rounded-xl border border-amber-900/15 bg-amber-50 px-4 py-3 text-center text-sm text-amber-950">
-            Your registration is confirmed, but we couldn’t send the confirmation email. You can download your pass here.
-          </p>
-        )}
         <div className="flex justify-center">
           <TicketPass attendee={attendee} verificationUrl={verificationUrl} />
         </div>
