@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AlertCircle, ArrowRight, CheckCircle2, LoaderCircle } from "lucide-react";
+import { AlertCircle, ArrowRight, CheckCircle2, LoaderCircle, Sandwich, Shirt } from "lucide-react";
 
 const fields = [
   { name: "full_name", label: "Full name", placeholder: "e.g. Hana Tesfaye", autoComplete: "name" },
@@ -49,6 +49,40 @@ export default function RegistrationForm() {
 
   return (
     <form onSubmit={submit} className="rounded-[1.75rem] border border-plum/15 bg-oatmeal p-6 shadow-xl shadow-plum/5 sm:p-9" noValidate>
+      <section aria-labelledby="event-guidelines-title" className="mb-8 rounded-2xl border border-plum/15 bg-paper p-5 sm:p-6">
+        <div className="mb-5">
+          <p className="text-xs font-bold uppercase tracking-[.18em] text-accent">Before you register</p>
+          <h3 id="event-guidelines-title" className="mt-2 text-xl font-black tracking-tight text-ink">
+            Event Guidelines / What to Know Before Registering
+          </h3>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <article className="rounded-xl border border-plum/10 bg-white p-4">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <span className="grid h-10 w-10 place-items-center rounded-xl bg-plum/10 text-plum">
+                <Shirt className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <span className="flex h-7 overflow-hidden rounded-full border border-ink/15" aria-label="Black and white dress theme">
+                <span className="w-7 bg-black" />
+                <span className="w-7 bg-white" />
+              </span>
+            </div>
+            <h4 className="font-bold text-ink">Dress Code: Black &amp; White</h4>
+            <p className="mt-2 text-sm leading-6 text-ink/75">
+              Please come dressed in Full Black, Full White, or a Black &amp; White combination.
+            </p>
+          </article>
+          <article className="rounded-xl border border-gold/40 bg-white p-4">
+            <span className="mb-3 grid h-10 w-10 place-items-center rounded-xl bg-gold/20 text-accent">
+              <Sandwich className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <h4 className="font-bold text-ink">Overnight Fellowship</h4>
+            <p className="mt-2 text-sm leading-6 text-ink/75">
+              Don&apos;t forget to bring snacks to share and enjoy during the overnight program!
+            </p>
+          </article>
+        </div>
+      </section>
       <div className="mb-8">
         <h3 className="text-2xl font-extrabold tracking-tight text-ink">Attendee details</h3>
         <p className="mt-2 text-sm text-ink/70">All fields are required for your event pass.</p>
