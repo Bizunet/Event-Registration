@@ -19,9 +19,9 @@ export default async function TicketPage({ params }: { params: Promise<{ ticketI
   const verificationUrl = `${baseUrl}/ticket/${attendee.id}`;
 
   return (
-    <main className="min-h-screen bg-cream px-4 py-8 sm:px-6 sm:py-12">
+    <main className="min-h-screen bg-oatmeal px-4 py-8 sm:px-6 sm:py-12">
       <div className="mx-auto max-w-3xl">
-        <Link href="/" className="no-print inline-flex items-center gap-2 text-sm font-bold text-maroon transition hover:text-ink"><ArrowLeft className="h-4 w-4" /> Back to event</Link>
+        <Link href="/" className="no-print inline-flex items-center gap-2 text-sm font-bold text-plum transition hover:text-ink"><ArrowLeft className="h-4 w-4" /> Back to event</Link>
         <div className="mb-7 mt-8 text-center">
           <p className="text-xs font-bold uppercase tracking-[.2em] text-accent">You&apos;re on the list</p>
           <h1 className="mt-2 text-3xl font-black tracking-tight text-ink sm:text-4xl">Your digital event pass</h1>

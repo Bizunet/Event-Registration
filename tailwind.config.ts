@@ -5,12 +5,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#24070d",
-        maroon: "#3b0612",
-        cream: "#e5d7c0",
-        blush: "#f3eadc",
-        gold: "#caa35d",
-        accent: "#74501e",
+        ink: "#281522",
+        plum: "#2d002b",
+        oatmeal: "#d6bca3",
+        paper: "#f5eee4",
+        gold: "#e2b64f",
+        accent: "#694514",
       },
       fontFamily: {
         sans: ["Arial", "Helvetica", "sans-serif"],
