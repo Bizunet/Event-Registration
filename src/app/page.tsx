@@ -14,14 +14,6 @@ export default function HomePage() {
               <span className="text-sm font-bold tracking-[.12em] text-[#f5efe6]">DDUECSF</span>
             </a>
 
-            <nav className="hidden items-center gap-6 text-[11px] font-medium text-[#dfe9e7] md:flex">
-              <a href="#" className="transition hover:text-white">Home</a>
-              <a href="#" className="transition hover:text-white">About</a>
-              <a href="#" className="transition hover:text-white">Services</a>
-              <a href="#" className="transition hover:text-white">Pricing</a>
-              <a href="#" className="transition hover:text-white">Contact</a>
-            </nav>
-
             <a href="#register" className="inline-flex items-center gap-2 rounded-full bg-[#f0bf53] px-4 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-[#0d2725] shadow-lg shadow-[#0d2725]/10 transition hover:brightness-105 sm:text-xs">
               Get Started <ArrowUpRight className="h-3.5 w-3.5" />
             </a>

@@ -7,7 +7,7 @@ import { AlertCircle, ArrowRight, CheckCircle2, ImagePlus, LoaderCircle, Sandwic
 const MAX_RECEIPT_SIZE = 4 * 1024 * 1024;
 
 const fields = [
-  { name: "full_name", label: "Full name", placeholder: "e.g. Hana Tesfaye", autoComplete: "name" },
+  { name: "full_name", label: "Full name", placeholder: "e.g. John Haile", autoComplete: "name" },
   { name: "department", label: "Department", placeholder: "e.g. Computer Science", autoComplete: "organization-title" },
   { name: "year_semester", label: "Year & semester", placeholder: "e.g. Year 2 Sem 1", autoComplete: "off" },
   { name: "email", label: "Email address", placeholder: "you@example.com", autoComplete: "email", type: "email" },
@@ -130,13 +130,14 @@ export default function RegistrationForm() {
             <h4 className="font-bold text-ink">Dress Code: Black &amp; White</h4>
             <p className="mt-2 text-sm leading-6 text-ink/75">
               Please come dressed in Full Black, Full White, or a Black &amp; White combination.
+              ነጭ በነጭ ፣ ጥቁር በጥቁር ወይም ነጭና ጥቁር ቀላቅላችሁ መልበስ ትችላላችሁ።
             </p>
           </article>
           <article className="rounded-xl border border-gold/40 bg-white p-4">
             <span className="mb-3 grid h-10 w-10 place-items-center rounded-xl bg-gold/20 text-accent">
               <Sandwich className="h-5 w-5" aria-hidden="true" />
             </span>
-            <h4 className="font-bold text-ink">Overnight Fellowship</h4>
+            <h4 className="font-bold text-ink">BRING YOUR SNACK</h4>
             <p className="mt-2 text-sm leading-6 text-ink/75">
               Don&apos;t forget to bring snacks to share and enjoy during the overnight program!
             </p>
