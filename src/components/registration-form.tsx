@@ -7,12 +7,18 @@ import { AlertCircle, ArrowRight, CheckCircle2, ImagePlus, LoaderCircle, Sandwic
 const MAX_RECEIPT_SIZE = 4 * 1024 * 1024;
 
 const fields = [
-  { name: "full_name", label: "Full name", placeholder: "e.g. John Haile", autoComplete: "name" },
-  { name: "department", label: "Department", placeholder: "e.g. Computer Science", autoComplete: "organization-title" },
-  { name: "year_semester", label: "Year & semester", placeholder: "e.g. Year 2 Sem 1", autoComplete: "off" },
+  { name: "full_name", label: "Full name", placeholder: "e.g. John Haile", autoComplete: "name", capitalize: true },
+  { name: "department", label: "Department", placeholder: "e.g. Computer Science", autoComplete: "organization-title", capitalize: true },
+  { name: "year_semester", label: "Year & semester", placeholder: "e.g. Year 2 Sem 1", autoComplete: "off", capitalize: true },
   { name: "email", label: "Email address", placeholder: "you@example.com", autoComplete: "email", type: "email" },
   { name: "phone", label: "Phone number", placeholder: "+251 9XX XXX XXX", autoComplete: "tel", type: "tel" },
 ] as const;
+
+function capitalizeWords(value: string) {
+  return value.replace(/(^|[\s'-])(\p{L})/gu, (_match, separator: string, letter: string) =>
+    `${separator}${letter.toUpperCase()}`,
+  );
+}
 
 export default function RegistrationForm() {
   const router = useRouter();
@@ -75,6 +81,12 @@ export default function RegistrationForm() {
       }
 
       const data = Object.fromEntries(formData.entries());
+      for (const field of fields) {
+        const value = data[field.name];
+        if ("capitalize" in field && field.capitalize && typeof value === "string") {
+          data[field.name] = capitalizeWords(value);
+        }
+      }
       if (receipt) {
         data.payment_receipt_url = receipt.url;
         data.payment_receipt_token = receipt.token;
@@ -157,6 +169,12 @@ export default function RegistrationForm() {
               type={"type" in field ? field.type : "text"}
               placeholder={field.placeholder}
               autoComplete={field.autoComplete}
+              autoCapitalize={"capitalize" in field && field.capitalize ? "words" : "none"}
+              onChange={(event) => {
+                if ("capitalize" in field && field.capitalize) {
+                  event.currentTarget.value = capitalizeWords(event.currentTarget.value);
+                }
+              }}
               required
               maxLength={field.name === "full_name" ? 160 : field.name === "email" ? 254 : field.name === "department" ? 120 : 80}
               className="w-full rounded-xl border border-plum/20 bg-white px-4 py-3.5 text-sm text-ink outline-none transition placeholder:text-ink/55 focus:border-plum focus:ring-4 focus:ring-plum/15"
