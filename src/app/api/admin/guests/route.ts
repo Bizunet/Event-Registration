@@ -16,11 +16,17 @@ export async function GET() {
         email: true,
         phone: true,
         checked_in_at: true,
+        payment_receipt_url: true,
         created_at: true,
       },
       orderBy: { created_at: "desc" },
     });
-    return NextResponse.json({ guests });
+    return NextResponse.json({
+      guests: guests.map(({ payment_receipt_url, ...guest }) => ({
+        ...guest,
+        has_payment_receipt: Boolean(payment_receipt_url),
+      })),
+    });
   } catch (error) {
     console.error("Failed to load attendee roster", error);
     return NextResponse.json({ error: "Couldn’t load the guest list right now." }, { status: 500 });

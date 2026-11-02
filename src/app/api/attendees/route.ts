@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { isValidReceiptReference } from "@/lib/payment-receipt";
 import { validateAttendee } from "@/lib/validation";
 
 export async function POST(request: Request) {
@@ -14,8 +15,24 @@ export async function POST(request: Request) {
   const validated = validateAttendee(body);
   if (!validated.success) return NextResponse.json({ error: validated.message }, { status: 400 });
 
+  const record = body as Record<string, unknown>;
+  const receiptUrl = record.payment_receipt_url;
+  const receiptToken = record.payment_receipt_token;
+  if (
+    (receiptUrl !== undefined || receiptToken !== undefined) &&
+    !isValidReceiptReference(receiptUrl, receiptToken)
+  ) {
+    return NextResponse.json({ error: "Please upload a valid payment receipt before registering." }, { status: 400 });
+  }
+
   try {
-    const attendee = await prisma.attendee.create({ data: validated.data, select: { id: true } });
+    const attendee = await prisma.attendee.create({
+      data: {
+        ...validated.data,
+        payment_receipt_url: typeof receiptUrl === "string" ? receiptUrl : null,
+      },
+      select: { id: true },
+    });
     return NextResponse.json({ ticketId: attendee.id }, { status: 201 });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {

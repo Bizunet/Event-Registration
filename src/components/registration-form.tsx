@@ -1,8 +1,10 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AlertCircle, ArrowRight, CheckCircle2, LoaderCircle, Sandwich, Shirt } from "lucide-react";
+import { AlertCircle, ArrowRight, CheckCircle2, ImagePlus, LoaderCircle, Sandwich, Shirt, Trash2 } from "lucide-react";
+
+const MAX_RECEIPT_SIZE = 4 * 1024 * 1024;
 
 const fields = [
   { name: "full_name", label: "Full name", placeholder: "e.g. Hana Tesfaye", autoComplete: "name" },
@@ -17,13 +19,66 @@ export default function RegistrationForm() {
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [receiptFile, setReceiptFile] = useState<File | null>(null);
+  const [receiptPreview, setReceiptPreview] = useState("");
+
+  useEffect(() => {
+    if (!receiptFile) {
+      setReceiptPreview("");
+      return;
+    }
+
+    const previewUrl = URL.createObjectURL(receiptFile);
+    setReceiptPreview(previewUrl);
+    return () => URL.revokeObjectURL(previewUrl);
+  }, [receiptFile]);
+
+  function selectReceipt(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0] ?? null;
+    if (!file) return;
+    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
+      setReceiptFile(null);
+      setSuccess(false);
+      setMessage("Choose a PNG, JPEG, or WebP payment receipt image.");
+      event.target.value = "";
+      return;
+    }
+    if (file.size > MAX_RECEIPT_SIZE) {
+      setReceiptFile(null);
+      setSuccess(false);
+      setMessage("The receipt image must be 4 MB or smaller.");
+      event.target.value = "";
+      return;
+    }
+    setMessage("");
+    setReceiptFile(file);
+  }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setMessage("");
     setSubmitting(true);
-    const data = Object.fromEntries(new FormData(event.currentTarget).entries());
+    const formData = new FormData(event.currentTarget);
     try {
+      let receipt: { url: string; token: string } | null = null;
+      if (receiptFile) {
+        const upload = new FormData();
+        upload.set("file", receiptFile);
+        const uploadResponse = await fetch("/api/payment-receipts", { method: "POST", body: upload });
+        const uploadResult = await uploadResponse.json();
+        if (!uploadResponse.ok) {
+          setSuccess(false);
+          setMessage(uploadResult.error ?? "We couldn’t upload your receipt. Please try again.");
+          return;
+        }
+        receipt = { url: uploadResult.url, token: uploadResult.token };
+      }
+
+      const data = Object.fromEntries(formData.entries());
+      if (receipt) {
+        data.payment_receipt_url = receipt.url;
+        data.payment_receipt_token = receipt.token;
+      }
       const response = await fetch("/api/attendees", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -44,6 +99,12 @@ export default function RegistrationForm() {
     } finally {
       setSubmitting(false);
     }
+  }
+
+  function removeReceipt() {
+    setReceiptFile(null);
+    const input = document.getElementById("payment-receipt") as HTMLInputElement | null;
+    if (input) input.value = "";
   }
 
   return (
@@ -101,6 +162,43 @@ export default function RegistrationForm() {
             />
           </label>
         ))}
+      </div>
+      <div className="mt-6">
+        <label htmlFor="payment-receipt" className="mb-2 block text-sm font-semibold text-ink">
+          Attach Payment Receipt / Screenshot (Telebirr / CBE / Bank)
+          <span className="ml-1 text-xs font-medium text-ink/60">(optional)</span>
+        </label>
+        <input
+          id="payment-receipt"
+          type="file"
+          accept="image/png,image/jpeg,image/webp"
+          onChange={selectReceipt}
+          disabled={submitting}
+          className="sr-only"
+        />
+        {receiptFile && receiptPreview ? (
+          <div className="flex flex-col gap-4 rounded-xl border border-plum/20 bg-white p-3 sm:flex-row sm:items-center">
+            <img src={receiptPreview} alt="Selected payment receipt preview" className="h-36 w-full rounded-lg object-contain bg-slate-50 sm:w-36" />
+            <div className="min-w-0 flex-1">
+              <p className="break-all text-sm font-semibold text-ink">{receiptFile.name}</p>
+              <p className="mt-1 text-xs text-ink/65">{(receiptFile.size / (1024 * 1024)).toFixed(2)} MB</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <label htmlFor="payment-receipt" className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-plum/20 px-3 py-2 text-xs font-bold text-plum hover:bg-plum/5">
+                  <ImagePlus className="h-4 w-4" /> Choose another
+                </label>
+                <button type="button" onClick={removeReceipt} disabled={submitting} className="inline-flex items-center gap-2 rounded-lg border border-red-200 px-3 py-2 text-xs font-bold text-red-700 hover:bg-red-50 disabled:opacity-50">
+                  <Trash2 className="h-4 w-4" /> Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <label htmlFor="payment-receipt" className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-plum/25 bg-white/80 px-4 py-6 text-center transition hover:border-plum/50 hover:bg-white">
+            <ImagePlus className="h-7 w-7 text-plum" />
+            <span className="mt-2 text-sm font-bold text-ink">Choose receipt screenshot</span>
+            <span className="mt-1 text-xs text-ink/65">PNG, JPEG, or WebP · up to 4 MB</span>
+          </label>
+        )}
       </div>
       {message && (
         <div role={success ? "status" : "alert"} className={`mt-6 flex items-start gap-2 rounded-xl px-4 py-3 text-sm ${success ? "bg-plum/10 text-plum" : "bg-red-50 text-red-700"}`}>

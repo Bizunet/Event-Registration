@@ -3,8 +3,9 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, CheckCircle2, Download, LogOut, QrCode, Search, Users } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Download, FileImage, LogOut, QrCode, Search, Users } from "lucide-react";
 import QrScannerModal from "@/components/qr-scanner-modal";
+import PaymentReceiptModal from "@/components/payment-receipt-modal";
 
 type Guest = {
   id: string;
@@ -14,6 +15,7 @@ type Guest = {
   email: string;
   phone: string;
   checked_in_at: string | null;
+  has_payment_receipt: boolean;
   created_at: string;
 };
 
@@ -29,6 +31,7 @@ export default function AdminGuests() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [scannerOpen, setScannerOpen] = useState(false);
+  const [selectedReceipt, setSelectedReceipt] = useState<Pick<Guest, "id" | "full_name"> | null>(null);
 
   const loadGuests = useCallback(async () => {
     setLoading(true);
@@ -170,8 +173,8 @@ export default function AdminGuests() {
             </div>
             <div className="mt-5 overflow-hidden rounded-2xl border border-ink/10 bg-white sm:mt-6">
               <div className="hidden overflow-x-auto md:block">
-                <table className="w-full min-w-[900px] text-left text-sm">
-                  <thead className="bg-sky-gradient text-xs uppercase tracking-wider text-ink/70"><tr>{["Attendee", "Department", "Year & semester", "Phone", "Check-in"].map((heading) => <th key={heading} className="px-5 py-4 font-bold">{heading}</th>)}</tr></thead>
+                <table className="w-full min-w-[1040px] text-left text-sm">
+                  <thead className="bg-sky-gradient text-xs uppercase tracking-wider text-ink/70"><tr>{["Attendee", "Department", "Year & semester", "Phone", "Payment Receipt", "Check-in"].map((heading) => <th key={heading} className="px-5 py-4 font-bold">{heading}</th>)}</tr></thead>
                   <tbody className="divide-y divide-ink/5">
                     {filteredGuests.map((guest) => (
                       <tr key={guest.id} className="transition-colors hover:bg-[#dff3ff]">
@@ -179,6 +182,17 @@ export default function AdminGuests() {
                         <td className="px-5 py-4">{guest.department}</td>
                         <td className="px-5 py-4">{guest.year_semester}</td>
                         <td className="px-5 py-4">{guest.phone}</td>
+                        <td className="px-5 py-4">
+                          {guest.has_payment_receipt ? (
+                            <button
+                              type="button"
+                              onClick={() => setSelectedReceipt({ id: guest.id, full_name: guest.full_name })}
+                              className="inline-flex items-center gap-1.5 rounded-full bg-sky-100 px-3 py-1.5 text-xs font-bold text-sky-800 transition hover:bg-sky-200"
+                            >
+                              <FileImage className="h-3.5 w-3.5" /> View Receipt
+                            </button>
+                          ) : <span className="text-xs text-ink/55">Not provided</span>}
+                        </td>
                         <td className="px-5 py-4">
                           {guest.checked_in_at ? (
                             <span className="inline-flex flex-col items-start gap-1">
@@ -189,7 +203,7 @@ export default function AdminGuests() {
                         </td>
                       </tr>
                     ))}
-                    {filteredGuests.length === 0 && <tr><td colSpan={5} className="px-5 py-12 text-center text-sm text-ink/70">{guests.length === 0 ? "No guests registered yet." : "No guests match your search."}</td></tr>}
+                    {filteredGuests.length === 0 && <tr><td colSpan={6} className="px-5 py-12 text-center text-sm text-ink/70">{guests.length === 0 ? "No guests registered yet." : "No guests match your search."}</td></tr>}
                   </tbody>
                 </table>
               </div>
@@ -204,6 +218,17 @@ export default function AdminGuests() {
                       <dt className="text-ink/65">Department</dt><dd className="break-words font-medium text-ink">{guest.department}</dd>
                       <dt className="text-ink/65">Year &amp; semester</dt><dd className="break-words font-medium text-ink">{guest.year_semester}</dd>
                       <dt className="text-ink/65">Phone</dt><dd className="break-words font-medium text-ink">{guest.phone}</dd>
+                      <dt className="text-ink/65">Payment receipt</dt><dd className="break-words font-medium text-ink">
+                        {guest.has_payment_receipt ? (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedReceipt({ id: guest.id, full_name: guest.full_name })}
+                            className="inline-flex items-center gap-1 rounded-full bg-sky-100 px-2 py-1 text-[10px] font-bold text-sky-800"
+                          >
+                            <FileImage className="h-3 w-3" /> View Receipt
+                          </button>
+                        ) : <span className="text-ink/60">Not provided</span>}
+                      </dd>
                       <dt className="text-ink/65">Check-in</dt><dd className="break-words font-medium text-ink">
                         {guest.checked_in_at ? (
                           <span className="inline-flex flex-col items-start gap-1">
@@ -227,6 +252,13 @@ export default function AdminGuests() {
         <QrScannerModal
           onClose={() => setScannerOpen(false)}
           onCheckedIn={updateCheckedInGuest}
+        />
+      )}
+      {authenticated && selectedReceipt && (
+        <PaymentReceiptModal
+          attendeeId={selectedReceipt.id}
+          attendeeName={selectedReceipt.full_name}
+          onClose={() => setSelectedReceipt(null)}
         />
       )}
     </main>
