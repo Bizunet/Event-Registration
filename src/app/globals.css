@@ -4,8 +4,8 @@
 
 :root {
   color-scheme: light;
-  background: #d6bca3;
-  color: #281522;
+  background: linear-gradient(135deg, #dff3ff 0%, #66add8 100%);
+  color: #0b2f2d;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -14,13 +14,13 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   min-height: 100vh;
-  background: #d6bca3;
+  background: linear-gradient(135deg, #dff3ff 0%, #66add8 100%) fixed;
 }
 button, input, select { font: inherit; }
-::selection { color: #fff; background: #2d002b; }
+::selection { color: #fff; background: #0b5d57; }
 
 .grain {
-  background-image: radial-gradient(rgba(45, 0, 43, .16) .7px, transparent .7px);
+  background-image: radial-gradient(rgba(11, 93, 87, .16) .7px, transparent .7px);
   background-size: 15px 15px;
 }
 

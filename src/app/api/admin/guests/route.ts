@@ -11,11 +11,11 @@ export async function GET() {
       select: {
         id: true,
         full_name: true,
-        student_id: true,
         department: true,
         year_semester: true,
         email: true,
         phone: true,
+        checked_in_at: true,
         created_at: true,
       },
       orderBy: { created_at: "desc" },

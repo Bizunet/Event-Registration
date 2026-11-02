@@ -7,7 +7,7 @@ import { Download, LoaderCircle, MapPin } from "lucide-react";
 import { toPng } from "html-to-image";
 import { eventDetails } from "@/lib/event";
 
-type Attendee = { id: string; full_name: string; student_id: string | null; department: string; year_semester: string; phone: string };
+type Attendee = { id: string; full_name: string; department: string; year_semester: string; phone: string };
 
 export default function TicketPass({ attendee, verificationUrl }: { attendee: Attendee; verificationUrl: string }) {
   const passRef = useRef<HTMLDivElement>(null);
@@ -21,7 +21,7 @@ export default function TicketPass({ attendee, verificationUrl }: { attendee: At
     try {
       const dataUrl = await toPng(passRef.current, { pixelRatio: 2, cacheBust: true });
       const link = document.createElement("a");
-      link.download = `DDUECSF-pass-${attendee.student_id?.replace(/[^a-zA-Z0-9-]/g, "") || attendee.id}.png`;
+      link.download = `DDUECSF-pass-${attendee.id}.png`;
       link.href = dataUrl;
       link.click();
     } catch (downloadError) {
@@ -47,25 +47,36 @@ export default function TicketPass({ attendee, verificationUrl }: { attendee: At
           </div>
         </header>
 
-        <div className="grid justify-items-center gap-7 px-7 py-7 sm:grid-cols-[1fr_auto] sm:items-center sm:px-9 sm:py-8">
-          <div className="w-full">
+        <div className="flex w-full flex-col items-center gap-6 px-5 py-6 sm:gap-7 sm:px-9 sm:py-8">
+          <div className="w-full text-center">
             <p className="text-[10px] font-bold uppercase tracking-[.18em] text-accent">Admit one · Attendee</p>
             <h3 className="mt-2 break-words text-2xl font-black tracking-tight text-ink">{attendee.full_name}</h3>
-            <dl className="mx-auto mt-5 grid max-w-sm grid-cols-2 gap-x-4 gap-y-3 text-sm">
-              <dt className="text-ink/70">Student ID</dt><dd className="break-words font-semibold text-ink">{attendee.student_id ?? "—"}</dd>
-              <dt className="text-ink/70">Department</dt><dd className="break-words font-semibold text-ink">{attendee.department}</dd>
-              <dt className="text-ink/70">Year &amp; semester</dt><dd className="break-words font-semibold text-ink">{attendee.year_semester}</dd>
-              <dt className="text-ink/70">Phone</dt><dd className="break-words font-semibold text-ink">{attendee.phone}</dd>
-            </dl>
           </div>
-          <div className="flex flex-col items-center justify-center rounded-2xl bg-oatmeal p-3">
+
+          <dl className="flex w-full max-w-sm flex-col divide-y divide-ink/10 text-left text-sm">
+            <div className="flex items-start justify-between gap-4 py-3">
+              <dt className="shrink-0 text-ink/70">Department</dt>
+              <dd className="break-words text-right font-semibold text-ink">{attendee.department}</dd>
+            </div>
+            <div className="flex items-start justify-between gap-4 py-3">
+              <dt className="shrink-0 text-ink/70">Year &amp; semester</dt>
+              <dd className="break-words text-right font-semibold text-ink">{attendee.year_semester}</dd>
+            </div>
+            <div className="flex items-start justify-between gap-4 py-3">
+              <dt className="shrink-0 text-ink/70">Phone</dt>
+              <dd className="break-words text-right font-semibold text-ink">{attendee.phone}</dd>
+            </div>
+          </dl>
+
+          <div className="flex w-full flex-col items-center justify-center rounded-2xl bg-sky-gradient p-3">
             <QRCodeSVG value={verificationUrl} size={150} level="H" includeMargin />
             <span className="mt-1 text-[9px] font-bold uppercase tracking-[.15em] text-ink/65">Scan to verify</span>
           </div>
         </div>
+
         <footer className="flex flex-col items-center justify-center gap-3 border-t border-dashed border-ink/15 px-7 py-4">
           <div><p className="text-[9px] font-bold uppercase tracking-[.16em] text-ink/70">Ticket reference</p><p className="mt-1 break-all font-mono text-[10px] font-semibold tracking-wider text-plum">{attendee.id.toUpperCase()}</p></div>
-          <span className="shrink-0 rounded-full bg-oatmeal px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-ink">Digital pass</span>
+          <span className="shrink-0 rounded-full bg-sky-gradient px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-ink">Digital pass</span>
         </footer>
       </article>
       <div className="no-print mt-5">

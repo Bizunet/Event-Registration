@@ -1,6 +1,5 @@
 export type AttendeeInput = {
   full_name: string;
-  student_id: string;
   department: string;
   year_semester: string;
   email: string;
@@ -18,7 +17,6 @@ export function validateAttendee(value: unknown): ValidationResult {
   const record = value as Record<string, unknown>;
   const fields: (keyof AttendeeInput)[] = [
     "full_name",
-    "student_id",
     "department",
     "year_semester",
     "email",
@@ -44,7 +42,7 @@ export function validateAttendee(value: unknown): ValidationResult {
   if (!/^[+()\d.\-\s]{7,32}$/.test(sanitized.phone)) {
     return { success: false, message: "Enter a valid phone number." };
   }
-  if (sanitized.student_id.length > 80 || sanitized.department.length > 120 || sanitized.year_semester.length > 80) {
+  if (sanitized.department.length > 120 || sanitized.year_semester.length > 80) {
     return { success: false, message: "One or more fields are too long." };
   }
 

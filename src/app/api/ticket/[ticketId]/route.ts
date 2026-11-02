@@ -6,7 +6,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ tic
     const { ticketId } = await params;
     const attendee = await prisma.attendee.findUnique({
       where: { id: ticketId },
-      select: { id: true, full_name: true, student_id: true, department: true, year_semester: true, phone: true },
+      select: { id: true, full_name: true, department: true, year_semester: true, phone: true },
     });
     if (!attendee) return NextResponse.json({ error: "Ticket not found." }, { status: 404 });
     return NextResponse.json(attendee);

@@ -6,7 +6,6 @@ import { AlertCircle, ArrowRight, CheckCircle2, LoaderCircle, Sandwich, Shirt } 
 
 const fields = [
   { name: "full_name", label: "Full name", placeholder: "e.g. Hana Tesfaye", autoComplete: "name" },
-  { name: "student_id", label: "Student ID", placeholder: "Your university student ID", autoComplete: "off" },
   { name: "department", label: "Department", placeholder: "e.g. Computer Science", autoComplete: "organization-title" },
   { name: "year_semester", label: "Year & semester", placeholder: "e.g. Year 2 Sem 1", autoComplete: "off" },
   { name: "email", label: "Email address", placeholder: "you@example.com", autoComplete: "email", type: "email" },
@@ -48,11 +47,11 @@ export default function RegistrationForm() {
   }
 
   return (
-    <form onSubmit={submit} className="rounded-[1.75rem] border border-plum/15 bg-oatmeal p-6 shadow-xl shadow-plum/5 sm:p-9" noValidate>
-      <section aria-labelledby="event-guidelines-title" className="mb-8 rounded-2xl border border-plum/15 bg-paper p-5 sm:p-6">
+    <form onSubmit={submit} className="rounded-[1.5rem] border border-plum/15 bg-sky-gradient p-4 shadow-xl shadow-plum/5 sm:rounded-[1.75rem] sm:p-9" noValidate>
+      <section aria-labelledby="event-guidelines-title" className="mb-7 rounded-xl border border-plum/15 bg-paper p-4 sm:mb-8 sm:rounded-2xl sm:p-6">
         <div className="mb-5">
           <p className="text-xs font-bold uppercase tracking-[.18em] text-accent">Before you register</p>
-          <h3 id="event-guidelines-title" className="mt-2 text-xl font-black tracking-tight text-ink">
+          <h3 id="event-guidelines-title" className="mt-2 text-lg font-black tracking-tight text-ink sm:text-xl">
             Event Guidelines / What to Know Before Registering
           </h3>
         </div>
@@ -87,7 +86,7 @@ export default function RegistrationForm() {
         <h3 className="text-2xl font-extrabold tracking-tight text-ink">Attendee details</h3>
         <p className="mt-2 text-sm text-ink/70">All fields are required for your event pass.</p>
       </div>
-      <div className="grid gap-x-5 gap-y-5 sm:grid-cols-2">
+      <div className="grid gap-x-5 gap-y-4 sm:grid-cols-2 sm:gap-y-5">
         {fields.map((field) => (
           <label key={field.name} className="block">
             <span className="mb-2 block text-sm font-semibold text-ink">{field.label}<span className="text-plum"> *</span></span>
@@ -97,7 +96,7 @@ export default function RegistrationForm() {
               placeholder={field.placeholder}
               autoComplete={field.autoComplete}
               required
-              maxLength={field.name === "full_name" ? 160 : field.name === "email" ? 254 : field.name === "student_id" ? 80 : field.name === "department" ? 120 : 80}
+              maxLength={field.name === "full_name" ? 160 : field.name === "email" ? 254 : field.name === "department" ? 120 : 80}
               className="w-full rounded-xl border border-plum/20 bg-white px-4 py-3.5 text-sm text-ink outline-none transition placeholder:text-ink/55 focus:border-plum focus:ring-4 focus:ring-plum/15"
             />
           </label>
