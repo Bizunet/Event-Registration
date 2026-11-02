@@ -16,7 +16,9 @@ model Attendee {
   email         String   @unique @db.VarChar(254)
   phone         String   @db.VarChar(32)
   checked_in_at DateTime?
+  payment_receipt_url String?
   created_at    DateTime @default(now())
+
 
   @@index([full_name])
   @@index([department])
