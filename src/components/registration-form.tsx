@@ -135,7 +135,7 @@ export default function RegistrationForm() {
           <div className="flex items-start gap-3">
             <Shirt className="mt-0.5 h-5 w-5 shrink-0 text-plum" aria-hidden="true" />
             <p className="text-ink/75">
-              <span className="font-bold text-ink">Dress code: Black &amp; White.</span>{" "}
+              <span className="text-base font-extrabold text-ink sm:text-lg">Dress code: Black &amp; White.</span>{" "}
               Please wear full black, full white, or a combination.
               {" "}ነጭ በነጭ ፣ ጥቁር በጥቁር ወይም ነጭና ጥቁር ቀላቅላችሁ መልበስ ትችላላችሁ።
             </p>
@@ -143,7 +143,7 @@ export default function RegistrationForm() {
           <div className="flex items-start gap-3">
             <Sandwich className="mt-0.5 h-5 w-5 shrink-0 text-plum" aria-hidden="true" />
             <p className="text-ink/75">
-              <span className="font-bold text-ink">Bring a snack</span> to share and enjoy during the overnight program.
+              <span className="text-base font-extrabold text-ink sm:text-lg">Bring a snack</span> to share and enjoy during the overnight program.
             </p>
           </div>
         </div>
