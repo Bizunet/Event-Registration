@@ -174,10 +174,11 @@ export default function AdminGuests() {
             <div className="mt-5 overflow-hidden rounded-2xl border border-ink/10 bg-white sm:mt-6">
               <div className="hidden overflow-x-auto md:block">
                 <table className="w-full min-w-[1040px] text-left text-sm">
-                  <thead className="bg-sky-gradient text-xs uppercase tracking-wider text-ink/70"><tr>{["Attendee", "Department", "Year & semester", "Phone", "Payment Receipt", "Check-in"].map((heading) => <th key={heading} className="px-5 py-4 font-bold">{heading}</th>)}</tr></thead>
+                  <thead className="bg-sky-gradient text-xs uppercase tracking-wider text-ink/70"><tr>{["No.", "Attendee", "Department", "Year & semester", "Phone", "Payment Receipt", "Check-in"].map((heading) => <th key={heading} className="px-5 py-4 font-bold">{heading}</th>)}</tr></thead>
                   <tbody className="divide-y divide-ink/5">
-                    {filteredGuests.map((guest) => (
+                    {filteredGuests.map((guest, index) => (
                       <tr key={guest.id} className="transition-colors hover:bg-[#dff3ff]">
+                        <td className="px-5 py-4 font-semibold text-ink/70">{index + 1}.</td>
                         <td className="px-5 py-4"><p className="font-bold text-ink">{guest.full_name}</p><p className="mt-1 text-xs text-ink/65">{guest.email}</p></td>
                         <td className="px-5 py-4">{guest.department}</td>
                         <td className="px-5 py-4">{guest.year_semester}</td>
@@ -203,15 +204,15 @@ export default function AdminGuests() {
                         </td>
                       </tr>
                     ))}
-                    {filteredGuests.length === 0 && <tr><td colSpan={6} className="px-5 py-12 text-center text-sm text-ink/70">{guests.length === 0 ? "No guests registered yet." : "No guests match your search."}</td></tr>}
+                    {filteredGuests.length === 0 && <tr><td colSpan={7} className="px-5 py-12 text-center text-sm text-ink/70">{guests.length === 0 ? "No guests registered yet." : "No guests match your search."}</td></tr>}
                   </tbody>
                 </table>
               </div>
               <div className="divide-y divide-ink/10 md:hidden">
-                {filteredGuests.map((guest) => (
+                {filteredGuests.map((guest, index) => (
                   <article key={guest.id} className="space-y-3 p-4">
                     <div>
-                      <p className="font-bold text-ink">{guest.full_name}</p>
+                      <p className="font-bold text-ink">{index + 1}. {guest.full_name}</p>
                       <p className="mt-1 break-all text-xs text-ink/65">{guest.email}</p>
                     </div>
                     <dl className="grid grid-cols-2 gap-x-3 gap-y-2 text-xs">
