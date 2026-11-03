@@ -77,6 +77,27 @@ export default function HomePage() {
             </div>
 
             <div className="lg:pl-2">
+              <section aria-labelledby="payment-instructions-title" className="mb-5 rounded-2xl border border-[#0b5d57]/15 bg-white p-5 shadow-sm sm:p-6">
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[#0b5d57]">Payment required</p>
+                <h3 id="payment-instructions-title" className="mt-2 text-lg font-black text-[#0b2f2d]">
+                  Send 500 birr to either account
+                </h3>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-xl bg-[#edf5f3] p-4">
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#0b5d57]">CBE</p>
+                    <p className="mt-1 font-bold text-[#0b2f2d]">1000099530352</p>
+                    <p className="mt-1 text-sm text-[#4f615f]">YONATAN DERIBE</p>
+                  </div>
+                  <div className="rounded-xl bg-[#edf5f3] p-4">
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#0b5d57]">Telebirr</p>
+                    <p className="mt-1 font-bold text-[#0b2f2d]">091 523 4729</p>
+                    <p className="mt-1 text-sm text-[#4f615f]">YONATAN DERIBE</p>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm leading-6 text-[#4f615f]">
+                  After paying, take a screenshot of the receipt and upload it in the form below, then complete your registration.
+                </p>
+              </section>
               <RegistrationForm />
             </div>
           </div>

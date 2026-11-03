@@ -63,6 +63,11 @@ export default function RegistrationForm() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setMessage("");
+    if (!receiptFile) {
+      setSuccess(false);
+      setMessage("Please upload a screenshot of your payment receipt before registering.");
+      return;
+    }
     setSubmitting(true);
     const formData = new FormData(event.currentTarget);
     try {
@@ -185,7 +190,7 @@ export default function RegistrationForm() {
       <div className="mt-6">
         <label htmlFor="payment-receipt" className="mb-2 block text-sm font-semibold text-ink">
           Attach Payment Receipt / Screenshot (Telebirr / CBE / Bank)
-          <span className="ml-1 text-xs font-medium text-ink/60">(optional)</span>
+          <span className="ml-1 text-xs font-medium text-red-700">(required)</span>
         </label>
         <input
           id="payment-receipt"
