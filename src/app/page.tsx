@@ -58,7 +58,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="register" className="mt-10 rounded-[2rem] bg-[#f4efe9] px-4 py-6 shadow-[0_18px_40px_rgba(9,44,42,0.08)] sm:px-6 lg:px-8">
+        <section id="register" className="mt-10 rounded-[2rem] bg-[#edf5f3] px-4 py-6 shadow-[0_18px_40px_rgba(9,44,42,0.08)] sm:px-6 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div className="pt-4">
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#0b5d57]/20 bg-[#edf5f3] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.18em] text-[#0b5d57]">
