@@ -68,7 +68,7 @@ export default function TicketPass({ attendee, verificationUrl }: { attendee: At
             </div>
           </dl>
 
-          <div className="flex w-full flex-col items-center justify-center rounded-2xl bg-sky-gradient p-3">
+          <div className="flex w-full flex-col items-center justify-center rounded-2xl bg-oatmeal p-3">
             <QRCodeSVG value={verificationUrl} size={150} level="H" includeMargin />
             <span className="mt-1 text-[9px] font-bold uppercase tracking-[.15em] text-ink/65">Scan to verify</span>
           </div>
@@ -76,14 +76,14 @@ export default function TicketPass({ attendee, verificationUrl }: { attendee: At
 
         <footer className="flex flex-col items-center justify-center gap-3 border-t border-dashed border-ink/15 px-7 py-4">
           <div><p className="text-[9px] font-bold uppercase tracking-[.16em] text-ink/70">Ticket reference</p><p className="mt-1 break-all font-mono text-[10px] font-semibold tracking-wider text-plum">{attendee.id.toUpperCase()}</p></div>
-          <span className="shrink-0 rounded-full bg-sky-gradient px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-ink">Digital pass</span>
+          <span className="shrink-0 rounded-full bg-oatmeal px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-ink">Digital pass</span>
         </footer>
       </article>
       <div className="no-print mt-5">
         <button onClick={downloadPass} disabled={downloading} className="flex w-full items-center justify-center gap-2 rounded-xl bg-plum px-5 py-4 font-bold text-white shadow-lg shadow-plum/20 transition hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum disabled:cursor-not-allowed disabled:opacity-70">
           {downloading ? <><LoaderCircle className="h-5 w-5 animate-spin" /> Preparing pass…</> : <><Download className="h-5 w-5" /> Download your pass</>}
         </button>
-        {error && <p role="alert" className="mt-3 text-center text-sm text-red-700">{error}</p>}
+        {error && <p role="alert" className="mt-3 text-center text-sm font-semibold text-plum">{error}</p>}
       </div>
     </div>
   );

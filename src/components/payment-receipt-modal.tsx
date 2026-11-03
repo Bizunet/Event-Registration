@@ -16,7 +16,7 @@ export default function PaymentReceiptModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#082c35]/75 p-3 backdrop-blur-sm sm:p-6"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-ink/75 p-3 backdrop-blur-sm sm:p-6"
       role="presentation"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) onClose();
@@ -37,7 +37,7 @@ export default function PaymentReceiptModal({
             <X className="h-5 w-5" />
           </button>
         </header>
-        <div className="flex max-h-[calc(95vh-5rem)] min-h-64 items-center justify-center overflow-auto bg-[#e7f2f7] p-3 sm:p-6">
+        <div className="flex max-h-[calc(95vh-5rem)] min-h-64 items-center justify-center overflow-auto bg-oatmeal p-3 sm:p-6">
           {failed ? (
             <div role="alert" className="p-8 text-center text-sm font-medium text-ink/70">
               <ImageOff className="mx-auto mb-3 h-8 w-8" />

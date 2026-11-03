@@ -4,8 +4,8 @@
 
 :root {
   color-scheme: light;
-  background: linear-gradient(135deg, #dff3ff 0%, #66add8 100%);
-  color: #0b2f2d;
+  background: linear-gradient(135deg, #faf7f1 0%, #ead8c5 100%);
+  color: #48291f;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -14,18 +14,18 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, #dff3ff 0%, #66add8 100%) fixed;
+  background: linear-gradient(135deg, #faf7f1 0%, #ead8c5 100%) fixed;
 }
 button, input, select { font: inherit; }
-::selection { color: #fff; background: #0b5d57; }
+::selection { color: #faf7f1; background: #6f3a2b; }
 
 .grain {
-  background-image: radial-gradient(rgba(11, 93, 87, .16) .7px, transparent .7px);
+  background-image: radial-gradient(rgba(72, 41, 31, .12) .7px, transparent .7px);
   background-size: 15px 15px;
 }
 
 @media print {
-  body { background: white !important; }
+  body { background: #faf7f1 !important; }
   .no-print { display: none !important; }
   .print-card { box-shadow: none !important; }
 }

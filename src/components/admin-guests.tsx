@@ -126,7 +126,7 @@ export default function AdminGuests() {
   }
 
   return (
-    <main className="min-h-screen bg-sky-gradient px-4 py-6 sm:px-6 sm:py-8">
+    <main className="min-h-screen bg-warm-gradient px-4 py-6 sm:px-6 sm:py-8">
       <div className="mx-auto max-w-7xl">
         <header className="flex items-center justify-between gap-4 rounded-[1.5rem] bg-plum px-4 py-4 shadow-lg shadow-ink/10 sm:px-6">
           <Link href="/" className="flex items-center gap-3" aria-label="DDUECSF event home">
@@ -146,7 +146,7 @@ export default function AdminGuests() {
             <form onSubmit={signIn} className="mt-7">
               <label className="block text-sm font-semibold text-ink" htmlFor="pin">Organizer PIN</label>
               <input id="pin" type="password" autoComplete="current-password" required value={pin} onChange={(event) => setPin(event.target.value)} className="mt-2 w-full rounded-xl border border-plum/20 px-4 py-3.5 text-ink outline-none focus:border-plum focus:ring-4 focus:ring-plum/15" />
-              {error && <p role="alert" className="mt-3 text-sm text-red-700">{error}</p>}
+              {error && <p role="alert" className="mt-3 text-sm font-semibold text-plum">{error}</p>}
               <button disabled={loading} className="mt-5 w-full rounded-xl bg-plum px-5 py-3.5 font-bold text-white hover:bg-ink disabled:opacity-70">{loading ? "Signing in…" : "Sign in"}</button>
             </form>
           </div>
@@ -160,7 +160,7 @@ export default function AdminGuests() {
               </div>
               <div className="flex w-full gap-2 sm:w-auto">
                 <button onClick={exportCsv} disabled={filteredGuests.length === 0} className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-plum px-4 py-3 text-sm font-bold text-white hover:bg-ink disabled:opacity-70 sm:flex-none"><Download className="h-4 w-4" /> Export CSV</button>
-                <button onClick={() => setScannerOpen(true)} className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 py-3 text-sm font-bold text-white transition hover:bg-emerald-800 sm:flex-none"><QrCode className="h-4 w-4" /><span className="whitespace-nowrap">Scan QR Code</span></button>
+                <button onClick={() => setScannerOpen(true)} className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-gold px-4 py-3 text-sm font-bold text-ink transition hover:brightness-105 sm:flex-none"><QrCode className="h-4 w-4" /><span className="whitespace-nowrap">Scan QR Code</span></button>
                 <button onClick={signOut} className="inline-flex items-center justify-center gap-2 rounded-xl border border-ink/10 bg-white px-4 py-3 text-sm font-semibold text-ink hover:border-ink/30"><LogOut className="h-4 w-4" /><span className="hidden sm:inline">Sign out</span></button>
               </div>
             </div>
@@ -174,10 +174,10 @@ export default function AdminGuests() {
             <div className="mt-5 overflow-hidden rounded-2xl border border-ink/10 bg-white sm:mt-6">
               <div className="hidden overflow-x-auto md:block">
                 <table className="w-full min-w-[1040px] text-left text-sm">
-                  <thead className="bg-sky-gradient text-xs uppercase tracking-wider text-ink/70"><tr>{["No.", "Attendee", "Department", "Year & semester", "Phone", "Payment Receipt", "Check-in"].map((heading) => <th key={heading} className="px-5 py-4 font-bold">{heading}</th>)}</tr></thead>
+                  <thead className="bg-oatmeal text-xs uppercase tracking-wider text-ink/70"><tr>{["No.", "Attendee", "Department", "Year & semester", "Phone", "Payment Receipt", "Check-in"].map((heading) => <th key={heading} className="px-5 py-4 font-bold">{heading}</th>)}</tr></thead>
                   <tbody className="divide-y divide-ink/5">
                     {filteredGuests.map((guest, index) => (
-                      <tr key={guest.id} className="transition-colors hover:bg-[#dff3ff]">
+                      <tr key={guest.id} className="transition-colors hover:bg-oatmeal/50">
                         <td className="px-5 py-4 font-semibold text-ink/70">{index + 1}.</td>
                         <td className="px-5 py-4"><p className="font-bold text-ink">{guest.full_name}</p><p className="mt-1 text-xs text-ink/65">{guest.email}</p></td>
                         <td className="px-5 py-4">{guest.department}</td>
@@ -188,7 +188,7 @@ export default function AdminGuests() {
                             <button
                               type="button"
                               onClick={() => setSelectedReceipt({ id: guest.id, full_name: guest.full_name })}
-                              className="inline-flex items-center gap-1.5 rounded-full bg-sky-100 px-3 py-1.5 text-xs font-bold text-sky-800 transition hover:bg-sky-200"
+                              className="inline-flex items-center gap-1.5 rounded-full bg-oatmeal px-3 py-1.5 text-xs font-bold text-plum transition hover:bg-gold/40"
                             >
                               <FileImage className="h-3.5 w-3.5" /> View Receipt
                             </button>
@@ -197,7 +197,7 @@ export default function AdminGuests() {
                         <td className="px-5 py-4">
                           {guest.checked_in_at ? (
                             <span className="inline-flex flex-col items-start gap-1">
-                              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-800"><CheckCircle2 className="h-3.5 w-3.5" /> Checked In</span>
+                              <span className="inline-flex items-center gap-1.5 rounded-full bg-gold/30 px-2.5 py-1 text-xs font-bold text-plum"><CheckCircle2 className="h-3.5 w-3.5" /> Checked In</span>
                               <time className="text-xs text-ink/65" dateTime={guest.checked_in_at}>{formatCheckInTime(guest.checked_in_at)}</time>
                             </span>
                           ) : <span className="text-xs font-medium text-ink/60">Not checked in</span>}
@@ -224,7 +224,7 @@ export default function AdminGuests() {
                           <button
                             type="button"
                             onClick={() => setSelectedReceipt({ id: guest.id, full_name: guest.full_name })}
-                            className="inline-flex items-center gap-1 rounded-full bg-sky-100 px-2 py-1 text-[10px] font-bold text-sky-800"
+                            className="inline-flex items-center gap-1 rounded-full bg-oatmeal px-2 py-1 text-[10px] font-bold text-plum"
                           >
                             <FileImage className="h-3 w-3" /> View Receipt
                           </button>
@@ -233,7 +233,7 @@ export default function AdminGuests() {
                       <dt className="text-ink/65">Check-in</dt><dd className="break-words font-medium text-ink">
                         {guest.checked_in_at ? (
                           <span className="inline-flex flex-col items-start gap-1">
-                            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-1 text-[10px] font-bold text-emerald-800"><CheckCircle2 className="h-3 w-3" /> Checked In</span>
+                            <span className="inline-flex items-center gap-1 rounded-full bg-gold/30 px-2 py-1 text-[10px] font-bold text-plum"><CheckCircle2 className="h-3 w-3" /> Checked In</span>
                             <time dateTime={guest.checked_in_at}>{formatCheckInTime(guest.checked_in_at)}</time>
                           </span>
                         ) : <span className="text-ink/60">Not checked in</span>}
@@ -245,7 +245,7 @@ export default function AdminGuests() {
               </div>
               <div className="border-t border-ink/5 px-5 py-3 text-xs text-ink/65">{loading ? "Refreshing…" : `Showing ${filteredGuests.length} of ${guests.length} registered guests`}</div>
             </div>
-            {error && <p role="alert" className="mt-4 text-sm text-red-700">{error}</p>}
+            {error && <p role="alert" className="mt-4 text-sm font-semibold text-plum">{error}</p>}
           </>
         )}
       </div>

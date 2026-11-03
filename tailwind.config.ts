@@ -5,19 +5,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#0b2f2d",
-        plum: "#0b5d57",
-        oatmeal: "#dff3ff",
-        paper: "#f4efe9",
-        gold: "#f0bf53",
-        accent: "#0b5d57",
+        ink: "#48291f",
+        plum: "#6f3a2b",
+        oatmeal: "#ead8c5",
+        paper: "#faf7f1",
+        white: "#faf7f1",
+        gold: "#d7a073",
+        accent: "#8a5039",
       },
       fontFamily: {
         sans: ["Arial", "Helvetica", "sans-serif"],
         display: ["Georgia", "Times New Roman", "serif"],
       },
       backgroundImage: {
-        "sky-gradient": "linear-gradient(135deg, #dff3ff 0%, #66add8 100%)",
+        "warm-gradient": "linear-gradient(135deg, #faf7f1 0%, #ead8c5 100%)",
       },
     },
   },

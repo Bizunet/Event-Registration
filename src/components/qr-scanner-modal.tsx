@@ -140,7 +140,7 @@ export default function QrScannerModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#082c35]/70 p-3 backdrop-blur-sm sm:p-6" role="presentation" onMouseDown={(event) => {
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/75 p-3 backdrop-blur-sm sm:p-6" role="presentation" onMouseDown={(event) => {
       if (event.target === event.currentTarget) closeModal();
     }}>
       <section
@@ -162,7 +162,7 @@ export default function QrScannerModal({
           </button>
         </div>
 
-        <div className="mt-5 overflow-hidden rounded-2xl border border-plum/15 bg-[#082c35]">
+        <div className="mt-5 overflow-hidden rounded-2xl border border-plum/15 bg-ink">
           <div id="ticket-qr-reader" className="min-h-64 w-full [&_video]:rounded-2xl [&_video]:object-cover" />
           {cameraState === "starting" && (
             <div className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-white">
@@ -198,10 +198,10 @@ export default function QrScannerModal({
             role={feedback.kind === "success" ? "status" : "alert"}
             className={`mt-5 rounded-2xl border p-4 ${
               feedback.kind === "success"
-                ? "border-emerald-200 bg-emerald-50 text-emerald-950"
+                ? "border-plum/20 bg-oatmeal text-ink"
                 : feedback.kind === "warning"
-                  ? "border-amber-200 bg-amber-50 text-amber-950"
-                  : "border-red-200 bg-red-50 text-red-900"
+                  ? "border-gold/50 bg-gold/20 text-ink"
+                  : "border-plum/30 bg-paper text-plum"
             }`}
           >
             {feedback.kind === "success" ? (

@@ -20,7 +20,7 @@ export default async function TicketPage({ params }: { params: Promise<{ ticketI
   const verificationUrl = `${baseUrl}/ticket/${attendee.id}`;
 
   return (
-    <main className="min-h-screen bg-sky-gradient px-4 py-6 sm:px-6 sm:py-8">
+    <main className="min-h-screen bg-warm-gradient px-4 py-6 sm:px-6 sm:py-8">
       <div className="mx-auto max-w-7xl">
         <header className="no-print flex items-center justify-between gap-4 rounded-[1.5rem] bg-plum px-4 py-4 shadow-lg shadow-ink/10 sm:px-6">
           <Link href="/" className="flex items-center gap-3" aria-label="DDUECSF event home">
